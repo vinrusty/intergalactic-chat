@@ -6,6 +6,7 @@ import { auth } from './firebase-config';
 import ChatHome from './component/ChatHome';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Chat from './component/Chat';
+import Header from './component/Header';
 
 function App() {
 
@@ -14,17 +15,20 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Routes>
           {
             user ?
             <>
+              <Header />
+              <Routes>
               <Route path="/" element={<ChatHome />} />
               <Route path="/rooms/:id" element={<Chat />} />
+              </Routes>
             </>
             :
+            <Routes>
             <Route path="/" element={<Auth />} />
+            </Routes>
           }
-        </Routes>
       </Router>
     </div>
   );
