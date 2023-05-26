@@ -1,23 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
+import Auth from './component/Auth';
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from './firebase-config';
+import ChatHome from './component/ChatHome';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Chat from './component/Chat';
 
 function App() {
+
+  const [user] = useAuthState(auth)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Routes>
+          {
+            user ?
+            <>
+              <Route path="/" element={<ChatHome />} />
+              <Route path="/rooms/:id" element={<Chat />} />
+            </>
+            :
+            <Route path="/" element={<Auth />} />
+          }
+        </Routes>
+      </Router>
     </div>
   );
 }
