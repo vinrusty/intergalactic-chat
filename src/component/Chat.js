@@ -4,6 +4,7 @@ import { collection, getDocs, query, where, doc, updateDoc, arrayUnion, onSnapsh
 import { useNavigate, useParams } from 'react-router-dom';
 import { auth, db } from '../firebase-config';
 import audioFile from "../assets/among.mp3";
+import Header from './Header';
 
 function Chat() {
 

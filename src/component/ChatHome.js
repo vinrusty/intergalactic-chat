@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Input, useDisclosure, useToast } from '@chakra-ui/react'
+import { Button, Flex, Heading, Input, useDisclosure, useToast, useMediaQuery } from '@chakra-ui/react'
 import { addDoc, collection, getDocs, getDoc, query, updateDoc, where, doc, arrayUnion } from 'firebase/firestore'
 import React, { useState, useEffect } from 'react'
 import { auth, db } from '../firebase-config'
@@ -13,6 +13,7 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react'
+import Header from './Header'
 
 function ChatHome() {
 
@@ -24,6 +25,7 @@ function ChatHome() {
   const navigate = useNavigate()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast()
+  const [islargerthan600] = useMediaQuery('(min-width: 960px)')
 
   const addUser = async(documentId, newUser) => {
     try {
@@ -141,9 +143,10 @@ function ChatHome() {
 
   return (
     <div>
-      <Flex alignItems="center" height="100vh" direction="column" justifyContent="center" padding="2rem">
-        <Heading color="white">INTERGALACTIC IMBECILES</Heading>
-        <Flex width="50%" direction="column" mt="40px">
+      <Header />
+      <Flex alignItems="center" height="100vh" direction="column" padding="2rem">
+        <Heading color="white" textAlign="center">INTERGALACTIC IMBECILES</Heading>
+        <Flex width={islargerthan600 ? "50%":"100%"} direction="column" mt="40px">
           <Input color="white" variant="filled" background="messenger.100" onChange={(e) => setTeamName(e.target.value)} placeholder='Enter team name' />
           <Input color="white" variant="filled" mt="10px" background="messenger.100" onChange={(e) => setCode(e.target.value)} placeholder='Enter room code' />
           <Button mt="20px" onClick={() => handleSubmit(code)} colorScheme='purple'>Enter Room</Button>

@@ -15,20 +15,17 @@ function App() {
   return (
     <div className="App">
       <Router>
+      <Routes>
           {
             user ?
             <>
-              <Header />
-              <Routes>
               <Route path="/" element={<ChatHome />} />
               <Route path="/rooms/:id" element={<Chat />} />
-              </Routes>
             </>
             :
-            <Routes>
             <Route path="/" element={<Auth />} />
-            </Routes>
           }
+        </Routes>
       </Router>
     </div>
   );
